@@ -1,5 +1,9 @@
 package com.rovio.plushmarket;
 
+import com.rovio.plushmarket.model.Market;
+import com.rovio.plushmarket.model.Offer;
+import com.rovio.plushmarket.model.Response;
+
 /**
  * PlushMarket interface.
  */
@@ -30,5 +34,5 @@ public interface PlushMarket {
      * ]}
      * </CODE>
      */
-    String calculateStrategy(String offerJSON, String marketJSON);
+    Response calculateStrategy(Offer offerJSON, Market marketJSON);
 }
