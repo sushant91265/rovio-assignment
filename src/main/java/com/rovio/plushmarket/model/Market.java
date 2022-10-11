@@ -6,11 +6,11 @@ import lombok.Data;
 
 @Data
 public class Market {
-    List<Plush> plushes;
+    List<PlushPrice> plushesPrices;
     List<Trade> trades;
 
-    public void addPlush(Plush plush) {
-        this.plushes.add(plush);
+    public void addPlush(PlushPrice plushPrice) {
+        this.plushesPrices.add(plushPrice);
     }
 
     public void addTrade(Trade trade) {

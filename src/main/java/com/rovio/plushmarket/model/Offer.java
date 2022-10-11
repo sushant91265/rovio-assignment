@@ -1,8 +1,10 @@
 package com.rovio.plushmarket.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
 public class Offer {
-    String plush;
+    List<Plush> plushes;
 }
