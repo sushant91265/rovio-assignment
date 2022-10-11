@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Trade {
-   String take;
-   String give;
+   private String take;
+   private String give;
 }

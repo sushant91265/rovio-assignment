@@ -33,9 +33,8 @@ public class App {
 
         Validation.validateInput(offer, market);
 
-        PlushMarket plushMarket = new PlushMarketImpl();
-        // print the output on console
-        System.out.println(plushMarket.calculateStrategy(offer, market));
+        PlushMarket plushMarket = new PlushMarketImpl(offer, market);
+        System.out.println(plushMarket.calculateStrategy());
     }
 
     private static <T> T parseFile(String path, Class<T> cls) throws IOException {
