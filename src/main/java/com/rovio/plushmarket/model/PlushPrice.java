@@ -3,11 +3,7 @@ package com.rovio.plushmarket.model;
 import lombok.Data;
 
 @Data
-public class PlushPrice extends Plush{
+public class PlushPrice {
+    private String plush;
     private double price;
-
-    public PlushPrice(String plushName, double price) {
-        super(plushName);
-        this.price = price;
-    }
 }

@@ -1,9 +1,9 @@
 {"plushes": [
-    {"plush": "RedBird", "price": 80},
     {"plush": "Stella", "price": 90},
-    {"plush": "Pig", "price": 75}
+    {"plush": "Pig", "price": 75},
+    {"plush": "RedBird", "price": 20}
 ],
 "trades": [
-    {"take": "RedBird", "give": "Pig"},
+    {"take": "Stella", "give": "Pig"},
     {"take": "Pig", "give": "Stella"}
 ]}

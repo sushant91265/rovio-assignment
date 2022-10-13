@@ -1,15 +1,16 @@
 package com.rovio.plushmarket.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class TradeAction extends Action{
-    private String name = "trade";
     private String give;
     private String take;
 
-    public TradeAction(String actionName, String give, String take) {
-        super(actionName);
+    public TradeAction(final String give, final String take) {
+        super("trade");
         this.give = give;
         this.take = take;
     }

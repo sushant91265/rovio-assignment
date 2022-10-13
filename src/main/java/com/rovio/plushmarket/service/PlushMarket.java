@@ -1,4 +1,6 @@
-package com.rovio.plushmarket;
+package com.rovio.plushmarket.service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * PlushMarket interface.
@@ -29,7 +31,7 @@ public interface PlushMarket {
      *    {"action": "sell", "plush": "Stella", "price": 90}
      * ]}
      * </CODE>
+     * @throws JsonProcessingException
      */
-    String calculateStrategy();
-    // String calculateStrategy(String offerJSON, String marketJSON);
+    String calculateStrategy(String offerJSON, String marketJSON);
 }
