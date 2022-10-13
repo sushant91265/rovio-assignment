@@ -13,11 +13,9 @@ import com.rovio.plushmarket.model.Plush;
 public class Validation {
     public static void validateInput(final Plush offer, final Market market) {
         Objects.requireNonNull(offer, "Offer cannot be null");
+        Objects.requireNonNull(offer.getPlush(), "Plush cannot be null");
         Objects.requireNonNull(market, "Market cannot be null");
         Objects.requireNonNull(market.getPlushes(), "Plushes cannot be null");
         Objects.requireNonNull(market.getTrades(), "Trades cannot be null");
-        Objects.requireNonNull(market.getPlushes().get(0), "Plushes cannot be empty");
-        Objects.requireNonNull(market.getTrades().get(0), "Trades cannot be empty");
-        Objects.requireNonNull(offer.getPlush(), "Plush cannot be null");
     }
 }

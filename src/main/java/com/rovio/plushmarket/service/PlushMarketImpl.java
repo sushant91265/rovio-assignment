@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.rovio.plushmarket.App;
+import com.rovio.plushmarket.model.ActionData;
 import com.rovio.plushmarket.model.Market;
 import com.rovio.plushmarket.model.Plush;
 import com.rovio.plushmarket.model.PlushPrice;
@@ -32,20 +33,12 @@ public class PlushMarketImpl implements PlushMarket {
     @Override
     public String calculateStrategy(String offerJSON, String marketJSON) {
         try {
-            Plush offer = FileUtils.parseFile(offerJSON, Plush.class);
-            Market market = FileUtils.parseFile(marketJSON, Market.class);
+            Plush offer = FileUtils.parseString(offerJSON, Plush.class);
+            Market market = FileUtils.parseString(marketJSON, Market.class);
 
-            Validation.validateInput(offer, market);
-            log.info("****** Plush Market ******");
-            log.info("Plush Offer: " + offer);
+            ActionData actionData = calculateStrategy(offer, market);
 
-            init(market);
-
-            Set<String> visited = new HashSet<>();
-            List<String> path = new ArrayList<>();
-            
-            getOptimizedTrades(offer.getPlush(), visited, path);
-            return App.mapper.writeValueAsString(finalResult.createOutput());
+            return App.mapper.writeValueAsString(actionData);
         } catch (IOException e) {
             log.error("Error while calculating the strategy", e);
             throw new RuntimeException(e);
@@ -56,6 +49,27 @@ public class PlushMarketImpl implements PlushMarket {
         }
     }
 
+    /*
+     * Overloaded method to calculate the best strategy for the given offer and market. 
+     */
+    private ActionData calculateStrategy(Plush offer, Market market) {
+        Validation.validateInput(offer, market);
+        log.info("****** Plush Market ******");
+        log.info("Plush Offer: " + offer);
+
+        init(market);
+
+        Set<String> visited = new HashSet<>();
+        List<String> path = new ArrayList<>();
+
+        getOptimizedTrades(offer.getPlush(), visited, path);
+        return finalResult.createOutput();
+    }
+
+    /*
+     * Initialize the plush trade mapping graph and plush price map. 
+     * @param market object
+     */
     private void init(final Market market) {
         // create a plush mapping graph out of the trades
         this.plushTradeMappingGraph = new HashMap<>();
@@ -75,13 +89,14 @@ public class PlushMarketImpl implements PlushMarket {
 
     /*
      * Recursive method to find the best strategy for the given offer and market.
-     * @param plush
+     * @param plush name
+     * @param visited Set
+     * @param path List
      */
     private void getOptimizedTrades(String plush, Set<String> visited, List<String> path) {
         if(visited.contains(plush)) {
             return;
         }
-
         // check plushes and see if we can get a better result
         if(plushPriceMap.containsKey(plush)){
             Result intermediateResult = new Result(path.size()+1, plushPriceMap.get(plush), 

@@ -26,6 +26,11 @@ public class Result {
     public final double price;
     public final List<String> paths;
 
+    /*
+     * Create the output based on the minimum number of trades or the maximum profit.
+     * @param Result object
+     * @return boolean value 
+     */
     public boolean isBetterDealThan(final Result r) {
         // greater price or lesser trades
         if(!Objects.equals(price, r.price)) {
@@ -35,6 +40,11 @@ public class Result {
         }
     }
 
+    /*
+     * Create the actions based on the result.
+     * Actions list is combination of trade and sell actions.
+     * @return List of actions 
+     */
     public ActionData createOutput() {
         if(Objects.isNull(this.getPaths()) || this.getPaths().isEmpty()) {
             return new ActionData(Collections.emptyList());
@@ -46,10 +56,9 @@ public class Result {
         for(int i=pathSize-2; i>=0; i--) {
             actions.add(new TradeAction(this.paths.get(i),this.paths.get(i+1)));
         }
-        log.debug("Trade actions: " + actions);
+
         Collections.reverse(actions);
         actions.add(new SellAction(this.paths.get(pathSize-1), this.price));
-        log.debug("Final actions: " + actions);
 
         return new ActionData(actions);
     }
