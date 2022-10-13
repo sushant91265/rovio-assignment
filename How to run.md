@@ -43,4 +43,3 @@
 - Add more test cases.
 - Add more validations.
 - Add more loggers.
-- Improve the logic/strategy to calculate the best offer.

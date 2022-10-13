@@ -53,11 +53,10 @@ public class Result {
         log.info("Resultant path: " + this.paths + " with total trades: " + pathSize);
         
         final List<Action> actions = new ArrayList<>(pathSize);
-        for(int i=pathSize-2; i>=0; i--) {
+        for(int i=0; i<pathSize-1; i++) {
             actions.add(new TradeAction(this.paths.get(i),this.paths.get(i+1)));
         }
-
-        Collections.reverse(actions);
+        
         actions.add(new SellAction(this.paths.get(pathSize-1), this.price));
 
         return new ActionData(actions);
