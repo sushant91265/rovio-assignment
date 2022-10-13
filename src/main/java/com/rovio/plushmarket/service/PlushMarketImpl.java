@@ -56,7 +56,7 @@ public class PlushMarketImpl implements PlushMarket {
         }
     }
 
-    private void init(Market market) {
+    private void init(final Market market) {
         // create a plush mapping graph out of the trades
         this.plushTradeMappingGraph = new HashMap<>();
         for(Trade trade : market.getTrades()) {
