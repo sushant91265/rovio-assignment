@@ -1,0 +1,8 @@
+{"plushes": [
+    {"plush": "Stella", "price": 90},
+    {"plush": "Pig", "price": 75}
+],
+"trades": [
+    {"take": "RedBird", "give": "Pig"},
+    {"take": "Pig", "give": "RedBird"}
+]}

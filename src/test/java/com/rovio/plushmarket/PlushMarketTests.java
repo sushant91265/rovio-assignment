@@ -1,38 +1,35 @@
 package com.rovio.plushmarket;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.rovio.plushmarket.model.ActionData;
 import com.rovio.plushmarket.service.PlushMarket;
 import com.rovio.plushmarket.service.PlushMarketImpl;
+import com.rovio.plushmarket.util.FileUtils;
 
 public class PlushMarketTests {
 
-    private PlushMarket plushMarket;
-    private String offerJSON;
-    private String marketJSON;
-    private ObjectMapper mapper;
-    
+    private static PlushMarket plushMarket;
+
     @BeforeAll
-    public void setup() {
+    public static void setup() {
         plushMarket = new PlushMarketImpl();
-        offerJSON = "src/test/java/com/rovio/plushmarket/resources/offer.json";
-        marketJSON = "src/test/java/com/rovio/plushmarket/resources/market.json";
-        mapper = JsonMapper.builder()
-                            .findAndAddModules()
-                            .build();
     }
 
+
     @Test
-    void testCalculateStrategy() throws IOException {
-        String result = plushMarket.calculateStrategy(offerJSON, marketJSON);
-        assert result != null;
-        // ActionData actionData = FileUtils.parseFile(offerJSON, ActionData.class);
+    public void testCalculateStrategy() throws IOException {
+        for(int i = 1; i<12; i++) {
+            String offerJSON = "src/test/java/com/rovio/plushmarket/resources/case"+i+"/offer.json";
+            String marketJSON = "src/test/java/com/rovio/plushmarket/resources/case"+i+"/market.json";
+            String actionJSON = "src/test/java/com/rovio/plushmarket/resources/case"+i+"/actions.json";
+
+            String result = plushMarket.calculateStrategy(offerJSON, marketJSON);
+            assert result != null;
+            String expected = FileUtils.readFile(actionJSON);
+            assert result.equals(expected);
+        }
     }
 }
